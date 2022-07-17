@@ -1,0 +1,48 @@
+<script type="text/javascript">
+    RED.nodes.registerType('update-node', {
+        category: "erpenxt",
+        defaults: {
+            name: { value: "" },
+            host: { value: "", type: "erpnext-config" },
+            doctype: { value: "", required: true },
+            data: { value: ""},
+        },
+        inputs: 1,
+        outputs: 1,
+        color: "#a6bbcf",
+        label: function () {
+            return this.name || "erpenxt-update"
+        },
+        oneditprepare: function() {
+            $("#node-input-data").typedInput({
+            type:"msg",
+            types:["msg", "flow","global"],
+            typeField: "#node-input-data-type"
+        })
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="update-node">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+         <label for="node-input-host"><i class="icon-bookmark"></i> URL</label>
+         <input type="text" id="node-input-host">
+     </div>
+     <div class="form-row">
+         <label for="node-input-doctype"><i class="icon-"></i> Doctype</label>
+         <input type="text" id="node-input-doctype">
+     </div>
+     <div class="form-row">
+        <label for="node-input-data"><i class="icon-"></i> Data</label>
+        <input type="text" id="node-input-data">
+        <input type="hidden" id="node-input-data-type">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="update-node">
+    <p>Calls the 'read' method on Odoo using the given model. The record ids are read as an array from the 'msg.payload'.</p>
+</script>

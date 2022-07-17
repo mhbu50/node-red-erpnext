@@ -1,0 +1,25 @@
+{
+  "name": "red-contrib-example-erpnext",
+  "description": "ERPNext API client nodes for Node-Red",
+  "node-red": {
+    "nodes": {
+      "erpnext-create" : "create-node.js",
+      "erpnext-upate" : "update-node.js",     
+      "erpnext-get" : "get-node.js",
+      "erpnext-delete" : "delete-node.js",
+      "erpnext-search" : "search-node.js",
+      "erpnext-exists" : "exists-node.js",
+      "erpnext-call" : "call-node.js",
+      "erpnext-config": "erpnext-config.js"
+    }
+  },
+  "dependencies": {
+    "erpnext-node": "sohzaz/erpnext-node"
+  },
+  "version": "1.0.0",
+  "author": "Accurate Systems",
+  "keywords": [
+    "node-red",
+    "erpnext"
+]
+}

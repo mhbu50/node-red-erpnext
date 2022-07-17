@@ -1,0 +1,238 @@
+<style>
+    /* Styles go here */
+
+    .page-header-jinja,
+    .page-header-jinja-space {
+        height: 120px;
+    }
+
+    .page-footer-jinja,
+    .page-footer-jinja-space {
+        height: 70px;
+
+    }
+
+    .page-footer-jinja {
+        position: fixed;
+        bottom: 0;
+        left: 5%;
+        width: 90%;
+        padding-left: 60px;
+        padding-right: 60px;
+        /*border-top: 1px solid rgb(173, 173, 173);*/
+    }
+
+    .page-header-jinja {
+        position: fixed;
+        /*padding-left: 40px;*/
+        top: 0mm;
+        width: 100%;
+    }
+
+    .page-jinja {
+        page-break-after: always;
+        font-size: 16px;
+        padding-left: 45px;
+        padding-right: 45px;
+        text-align: justify;
+        text-justify: inter-word;
+        height: 70px;
+    }
+
+    .logo-jinja {
+        width: 100%;
+        text-align: left;
+    }
+
+    .logo-jinja p {
+        float: right;
+        margin: 0;
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+    .logo-jinja img {
+        width: auto;
+        height: 100%;
+    }
+
+    @page {
+        margin: 0;
+    }
+
+    @media print {
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        button {
+            display: none;
+        }
+
+        body {
+            margin-top: 20px;
+        }
+    }
+
+    .printer-format {
+        display: none;
+    }
+
+    .pdf-format {
+        display: none;
+    }
+
+    @media print {
+        .printer-format {
+            display: block;
+        }
+
+        .screen-format {
+            display: none;
+        }
+
+        /*.pdf-format {*/
+        /*	display: block;*/
+        /*}*/
+
+        .pdf-format {
+            display: none;
+        }
+
+        .printer-format+.pdf-format {
+            display: none;
+        }
+
+        .print-format {
+            font-family: "Times New Roman";
+        }
+
+    }
+</style>
+<div class="screen-format hidden-pdf">
+    Click the Print Button - Preview Not Available
+</div>
+
+<div class="pdf-format hidden-pdf">
+    Use Print - PDF Preview Not Available
+</div>
+
+
+<!-- mydiv -->
+<div class="mohd">
+
+
+    <!-- Browser Print Preview -->
+    <!--<div class="printer-format hidden-pdf" style="direction: rtl;">-->
+    {% if doc.language == 'English' %}
+    <div class="printer-format hidden-pdf">
+        {% else -%}
+        <div class="printer-format hidden-pdf" style="direction: rtl;">
+            {% endif %}
+            <!-- Header -->
+
+            {% set company = frappe.get_doc('Company', doc.company) %}
+
+  
+
+            <!-- Footer -->
+            <!--<div class="page-footer-jinja">-->
+            <!--	<img class="lh-footer" src="/files/{{company.abbr}}_0.png">-->
+            <!--       <style>-->
+            <!--       .lh-footer{-->
+            <!--           width: 100%;-->
+
+            <!--       }-->
+            <!--       </style>-->
+            <!--</div>-->
+
+            <!-- Content -->
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <td>
+                            <!--place holder for the fixed-position header-->
+                            <div class="page-header-jinja-space"></div>
+                        </td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <!--*** CONTENT GOES HERE ***-->
+                            <div class="page-jinja">
+                                <!-- Doc Details -->
+                                <table width=100%>
+                                    <tr>
+                                        <td>{{ _("Number")}}:</td>
+                                        <td>{{doc.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:100px">{{ _("Date")}}:<br>
+                                            {{ _("Corresponding")}}:
+                                        </td>
+                                        <td> {{doc.h_date}}<br>
+                                            {{ frappe.utils.get_datetime(doc.date).strftime("%d-%m-%Y",) }}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td> <strong>{{ _("Subject")}}:</strong> </td>
+                                        <td>{{doc.subject}}</td>
+                                    </tr>
+                                    <tr> </tr>
+                                    <tr>
+                                        <td colspan="2">{{doc.text}}</td>
+                                    </tr>
+
+                                </table>
+
+
+                                <table width=70%>
+                                    <tr>
+                                        {% if company.abbr == "ACC" %}
+                                        <td style="text-align:center;">
+                                            <p style="text-align:center;"><strong>{{ _("Technical Advisor and
+                                                    Consultant")}}</strong></p>
+                                            <p style="text-align:center;">{{ _("Dr. P A Mark") }}</p>
+                                            <img src="https://raissyon.erpnext.com/files/dr_phil_sign.png" width="170"
+                                                height="100">
+                                        </td>
+                                        {% endif %}
+                                        <td style="text-align:center;">
+                                            <p style="text-align:center;"><strong>{{ _("General Manager")}}</strong></p>
+                                            <p style="text-align:center;">{{ _("Ibrahim Saad Al-Arifi") }}</p>
+                                            <img src="https://raissyon.erpnext.com/files/GM%20sign056ae1.png"
+                                                width="170" height="100">
+                                        </td>
+                                        <td valign='middle'><img src="{{doc.stamp}}" width="170" height="100"></td>
+                                    </tr>
+                                </table>
+
+                                <!---->
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td>
+                            <!--place holder for the fixed-position footer-->
+                            <div class="page-footer-jinja-space" style="width: 90%;"></div>
+                        </td>
+                    </tr>
+                </tfoot>
+
+            </table>
+        </div>
+
+    </div>
+</div>
